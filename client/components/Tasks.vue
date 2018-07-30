@@ -15,7 +15,6 @@
       @keyup.enter="add"
     >
 
-
     <div class="notification is-danger" v-show="error">
       <button class="delete" @click="clear('error')"></button>
       {{ error }}

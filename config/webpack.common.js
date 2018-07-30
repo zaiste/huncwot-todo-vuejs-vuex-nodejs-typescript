@@ -1,10 +1,10 @@
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const webpack = require('webpack');
-const { VueLoaderPlugin } = require('vue-loader')
+const { VueLoaderPlugin } = require('vue-loader');
 
-const docs = require.resolve('./loaders/docs.js')
+const docs = require.resolve('./loaders/docs.js');
 
 module.exports = {
   entry: './client/index.js',
@@ -36,24 +36,17 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [
-          {
-            loader: 'vue-style-loader'
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              modules: true,
-              localIdentName: '[local]_[hash:base64:8]'
-            }
-          }
-        ]
+        use: ['vue-style-loader', 'css-loader']
+      },
+      {
+        resourceQuery: /blockType=docs/,
+        loader: require.resolve('./loaders/docs.js')
       }
     ]
   },
   resolve: {
     alias: {
-      'vue$': 'vue/dist/vue.esm.js'
+      vue$: 'vue/dist/vue.esm.js'
     },
     extensions: ['*', '.js', '.vue', '.json']
   },
@@ -63,18 +56,16 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'client/index.html',
-      inject: true,
+      inject: true
     }),
     new FriendlyErrorsWebpackPlugin({
       compilationSuccessInfo: {
         messages: [
           'Client [Vue.js] available at http://localhost:8080',
-          'Server [REST & GraphQL endpoints] available at http://localhost:5544',
+          'Server [REST & GraphQL endpoints] available at http://localhost:5544'
         ],
-        notes: [
-          'Huncwot: 0.18.3',
-        ]
+        notes: ['Huncwot: 0.18.3']
       }
-    }),
+    })
   ]
-}
+};
